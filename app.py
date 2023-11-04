@@ -43,14 +43,17 @@ data={
    "sex":sex,
    "hours-per-week":hrs_week
     }
+#------------create dataframe----------#
 df=pd.DataFrame(data,index=[0])
 ordinal=OrdinalEncoder(categories=[['other-education', 'Some-college','HS-grad','Bachelors','Masters']])
 df['education']=ordinal.fit_transform(df[['education']])
+
+#------------predict----------#
 if st.button('Predict'):
     response=score_model(df)
     if response['predictions'][0]==0:
-        st.write('<$50k')
+        st.write('Customer is likely to have less than $50K earning')
     else:
-        st.write('>$50k')
+        st.write('Customer is likely to have greater than $50K earning')
 
 
